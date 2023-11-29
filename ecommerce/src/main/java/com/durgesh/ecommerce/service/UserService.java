@@ -23,9 +23,11 @@ public class UserService {
        return "User added Succesfully";
    }
 
-   public String linkProductWithUser( int userId, int productId){
+   public String linkProductWithUser( int userId, int productId,int quant){
        User user=this.iUserRepo.findById(userId).get();
-       user.getProducts().add(iProductRepo.findById(productId).get());
+       Product product=iProductRepo.findById(productId).get();
+       product.setQuantity(quant);
+       user.getProducts().add(product);
        iUserRepo.save(user);
 
        return "product linked succesfully to user";}
@@ -45,7 +47,10 @@ public class UserService {
 
       for(Product p:user.getProducts()){
           if(p.getProductId()==id2){
+              p.setQuantity(0);
+              iProductRepo.save(p);
               res=p;
+
 
           }
 
@@ -60,10 +65,13 @@ public class UserService {
     }
 
     public UserDto ValidateUser(User user){
-       if(user.getEmail().equals("admin@ecommerce.com")&&user.getPassword().equals("1234")){
-           return new UserDto("Admin");
-       }
 
-       return new UserDto("User");
+
+       User user1=iUserRepo.findFirstByEmail(user.getEmail());
+       if(user1!=null)
+       return new UserDto(user1.getUserId());
+        else return new UserDto(-1);
     }
+
+
 }

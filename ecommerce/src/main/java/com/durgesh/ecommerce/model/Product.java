@@ -21,6 +21,7 @@ public class Product {
     private String description;
     private String imageUrl;
     private int rating;
+
     private int quantity;
     @JsonIgnore
     @ManyToMany(mappedBy = "products", cascade = CascadeType.ALL)

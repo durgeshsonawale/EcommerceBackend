@@ -15,13 +15,28 @@ public class OrderController {
     @Autowired
     OrderService orderService;
 
-    @PostMapping()
-    public String addOrders(@RequestBody User user){
-        return orderService.addOrder(user);
+    @PostMapping("{id}")
+    public String addOrders(@PathVariable int id){
+        return orderService.addOrder(id);
     }
     @GetMapping()
-    public List<Orders> getOrder(){
-        return orderService.getOrder();
+    public List<Orders> getOrders(){
+        return orderService.getOrders();
+    }
+    @PutMapping("{id}/{status}")
+    public String setStatus(@PathVariable int id,@PathVariable String status){
+        return this.orderService.setStatus(id,status);
+    }
+
+
+    @GetMapping("{id}")
+    Orders getOrderById(@PathVariable int id){
+        return orderService.getOrderById(id);
+    }
+
+    @GetMapping("orders/{userId}")
+    List<Orders> getAllOrders(@PathVariable int userId){
+        return orderService.getByUser(userId);
     }
 
 }

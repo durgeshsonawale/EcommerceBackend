@@ -26,9 +26,9 @@ public class UserController {
         return userService.addUser(user);
 
     }
-    @GetMapping("{userId}/{productId}")
-    public ResponseEntity<String> linkProductWithUser(@PathVariable int userId, @PathVariable int productId){
-        return ResponseEntity.ok(this.userService.linkProductWithUser(userId,productId));
+    @GetMapping("{userId}/{productId}/{quant}")
+    public ResponseEntity<String> linkProductWithUser(@PathVariable int userId, @PathVariable int productId,@PathVariable int quant){
+        return ResponseEntity.ok(this.userService.linkProductWithUser(userId,productId,quant));
     }
     @GetMapping("users")
     public List<User> getAll(){

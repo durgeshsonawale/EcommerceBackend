@@ -21,5 +21,7 @@ public class Orders {
      private User user;
     @ManyToMany
       private List<Product> products=new ArrayList<>();
+
     private int prize;
+    private String status;
 }
