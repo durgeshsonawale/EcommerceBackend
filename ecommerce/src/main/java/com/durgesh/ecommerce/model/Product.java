@@ -22,7 +22,10 @@ public class Product {
     private String imageUrl;
     private int rating;
 
-    private int quantity;
+    private int quantity=1;
+    private int availableQuant=100;
+//    @OneToMany
+//    private List<Quantity> quantities;
     @JsonIgnore
     @ManyToMany(mappedBy = "products", cascade = CascadeType.ALL)
     private List<User> users;

@@ -1,5 +1,6 @@
 package com.durgesh.ecommerce.controller;
 
+import com.durgesh.ecommerce.model.OrderProduct;
 import com.durgesh.ecommerce.model.Orders;
 import com.durgesh.ecommerce.model.User;
 import com.durgesh.ecommerce.service.OrderService;
@@ -10,7 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("order")
-@CrossOrigin("*")
+//@CrossOrigin(origins = "http://localhost:4200")
 public class OrderController {
     @Autowired
     OrderService orderService;
@@ -37,6 +38,10 @@ public class OrderController {
     @GetMapping("orders/{userId}")
     List<Orders> getAllOrders(@PathVariable int userId){
         return orderService.getByUser(userId);
+    }
+    @GetMapping("orderproduct/{id}")
+    List<OrderProduct> getAllByOrder(@PathVariable int id){
+        return this.orderService.getAllByOrder(id);
     }
 
 }

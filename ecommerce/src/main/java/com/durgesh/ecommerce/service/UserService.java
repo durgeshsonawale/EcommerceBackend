@@ -17,8 +17,13 @@ public class UserService {
     private IUserRepo iUserRepo;
     @Autowired
     private IProductRepo iProductRepo;
+    @Autowired
+    private GenerateToken generateToken;
 
    public String  addUser( User user){
+       if(iUserRepo.findFirstByEmail(user.getEmail())!=null){
+           return "already exist";
+       }
        iUserRepo.save(user);
        return "User added Succesfully";
    }
@@ -26,6 +31,12 @@ public class UserService {
    public String linkProductWithUser( int userId, int productId,int quant){
        User user=this.iUserRepo.findById(userId).get();
        Product product=iProductRepo.findById(productId).get();
+       if(iProductRepo.findByProductIdAndUsers(productId,user)!=null){
+           product.setQuantity(product.getQuantity()+quant);
+           iUserRepo.save(user);
+           return "Added";
+       }
+
        product.setQuantity(quant);
        user.getProducts().add(product);
        iUserRepo.save(user);
@@ -47,7 +58,7 @@ public class UserService {
 
       for(Product p:user.getProducts()){
           if(p.getProductId()==id2){
-              p.setQuantity(0);
+              p.setQuantity(1);
               iProductRepo.save(p);
               res=p;
 
@@ -67,10 +78,10 @@ public class UserService {
     public UserDto ValidateUser(User user){
 
 
-       User user1=iUserRepo.findFirstByEmail(user.getEmail());
-       if(user1!=null)
-       return new UserDto(user1.getUserId());
-        else return new UserDto(-1);
+       User user1=iUserRepo.findFirstByEmailAndPassword(user.getEmail(),user.getPassword());
+       if(user1!=null )
+       return new UserDto(user1.getUserId(),generateToken.generateToken(user1));
+        else return new UserDto(-1,null);
     }
 
 

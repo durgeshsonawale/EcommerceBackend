@@ -5,7 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -24,4 +26,5 @@ public class Orders {
 
     private int prize;
     private String status;
+    private LocalDateTime time;
 }

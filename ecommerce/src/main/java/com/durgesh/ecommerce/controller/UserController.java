@@ -2,6 +2,7 @@ package com.durgesh.ecommerce.controller;
 
 import com.durgesh.ecommerce.model.User;
 import com.durgesh.ecommerce.model.UserDto;
+import com.durgesh.ecommerce.service.GenerateToken;
 import com.durgesh.ecommerce.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -11,14 +12,16 @@ import java.util.List;
 
 @RestController
 @RequestMapping("user")
-@CrossOrigin( "*")
+//@CrossOrigin(origins = "http://localhost:4200")
 public class UserController {
     @Autowired
     UserService userService;
+    @Autowired
+    GenerateToken generateToken;
 
-    @GetMapping("{id}")
+    @GetMapping("/validate1/{id}")
     public User getById(@PathVariable int id){
-        return this.userService.getById(id);
+        System.out.println("doneeeeeeeeee1111111");return this.userService.getById(id);
     }
 
     @PostMapping("add")

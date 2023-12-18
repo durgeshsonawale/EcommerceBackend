@@ -11,7 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("product")
-@CrossOrigin("*")
+//@CrossOrigin(origins = "http://localhost:4200")
 public class ProductController {
     @Autowired
     private ProductService productService;
@@ -29,7 +29,7 @@ public class ProductController {
 
     }
     @DeleteMapping("{id}")
-    @CrossOrigin("*")
+
     public String deleteById(@PathVariable int id){
         return this.productService.deleteById(id);
     }
